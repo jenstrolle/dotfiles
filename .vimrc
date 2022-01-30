@@ -75,6 +75,7 @@ nnoremap <space> za
 
 " when opening vim open explorer in left split
 autocmd VimEnter * NERDTree
+let NERDTreeShowHidden=1
 
 " show folded docstring
 let g:SimpylFold_docstring_preview=1
@@ -118,6 +119,11 @@ if !exists('g:airline_symbols')
 let g:airline_symbols.linenr = '  ␊:'
 let g:airline_symbols.colnr = '  ℅:'
 let g:airline_symbols.maxlinenr = '☰  '
+
+syntax enable
+set background=dark
+colorscheme solarized
+set termguicolors
 
 " utf-8
 set encoding=utf-8
@@ -179,7 +185,6 @@ let g:syntastic_tex_chktex_args = '-n3'
 
 " python highlighting
 let python_highlight_all=1
-syntax on
 
 " linenumbering
 set nu
