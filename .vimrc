@@ -41,7 +41,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
-Plugin 'valloric/YouCompleteMe'
+" Plugin 'valloric/YouCompleteMe'
 
 
 
@@ -128,29 +128,29 @@ set termguicolors
 " utf-8
 set encoding=utf-8
 
-" YouCompleteMe settings
-let g:ycm_autoclose_preview_window_after_completion=1
-"map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-" Turn off YCM
-nnoremap <leader>y :let g:ycm_auto_trigger=0<CR>
-" Turn on YCM
-nnoremap <leader>Y :let g:ycm_auto_trigger=1<CR>
-
-" ycm settings for vim
-if !exists('g:ycm_semantic_triggers')
-  let g:ycm_semantic_triggers = {}
-endif
-let g:ycm_semantic_triggers.tex = [
-      \ 're!\\[A-Za-z]*cite[A-Za-z]*(\[[^]]*\]){0,2}{[^}]*',
-      \ 're!\\[A-Za-z]*ref({[^}]*|range{([^,{}]*(}{)?))',
-      \ 're!\\hyperref\[[^]]*',
-      \ 're!\\includegraphics\*?(\[[^]]*\]){0,2}{[^}]*',
-      \ 're!\\(include(only)?|input){[^}]*',
-      \ 're!\\\a*(gls|Gls|GLS)(pl)?\a*(\s*\[[^]]*\]){0,2}\s*\{[^}]*',
-      \ 're!\\includepdf(\s*\[[^]]*\])?\s*\{[^}]*',
-      \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
-      \ ]
+" " YouCompleteMe settings
+" let g:ycm_autoclose_preview_window_after_completion=1
+" "map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" 
+" " Turn off YCM
+" nnoremap <leader>y :let g:ycm_auto_trigger=0<CR>
+" " Turn on YCM
+" nnoremap <leader>Y :let g:ycm_auto_trigger=1<CR>
+" 
+" " ycm settings for vim
+" if !exists('g:ycm_semantic_triggers')
+"   let g:ycm_semantic_triggers = {}
+" endif
+" let g:ycm_semantic_triggers.tex = [
+"       \ 're!\\[A-Za-z]*cite[A-Za-z]*(\[[^]]*\]){0,2}{[^}]*',
+"       \ 're!\\[A-Za-z]*ref({[^}]*|range{([^,{}]*(}{)?))',
+"       \ 're!\\hyperref\[[^]]*',
+"       \ 're!\\includegraphics\*?(\[[^]]*\]){0,2}{[^}]*',
+"       \ 're!\\(include(only)?|input){[^}]*',
+"       \ 're!\\\a*(gls|Gls|GLS)(pl)?\a*(\s*\[[^]]*\]){0,2}\s*\{[^}]*',
+"       \ 're!\\includepdf(\s*\[[^]]*\])?\s*\{[^}]*',
+"       \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
+"       \ ]
 
 " syntastic settings
 " overvej at skifte til ALE jf https://bit.ly/3EBXM1b
@@ -191,13 +191,27 @@ set nu
 set rnu
 
 
-" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" Trigger configuration. You need to change this to something other 
+" than <tab> if you use one of the following:
+" 
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
 "" default values
-let g:UltiSnipsExpandTrigger="<c-q>"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+
+" latex settings
+"
+" consider adding synctex capability https://bit.ly/3Gd8Br5
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode = 0
+let g:tex_conceal='abdmg'
+
+" Toggle conceallevel
+nnoremap <Leader>c :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . &cole <CR>
