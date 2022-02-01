@@ -215,3 +215,7 @@ let g:tex_conceal='abdmg'
 
 " Toggle conceallevel
 nnoremap <Leader>c :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . &cole <CR>
+
+" Want to remove highlighting on concealed math stuff.
+" highlight Conceal ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+
