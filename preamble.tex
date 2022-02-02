@@ -1,0 +1,44 @@
+\documentclass[a4paper,oneside,article]{memoir}
+
+\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
+\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
+\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
+\usepackage{graphicx}  % Gør det muligt at indsætte billeder
+\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
+\usepackage{amssymb,amsmath,amsfonts}
+\usepackage{amsthm}
+\usepackage[english]{babel}  % Danske betegnelser og orddeling
+%\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
+\usepackage{listings}
+\usepackage{xfrac} % Seje brøker
+\usepackage{bm} % Mere fedt matematik
+\usepackage{comment} % Bedre kommentarer
+\usepackage[notextcomp]{kpfonts} % M&I symboler
+\usepackage{tikz}  % Tegne grafer
+\usepackage{float}
+\usepackage{titling}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{csquotes}
+\usepackage[linesnumbered,lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{algpseudocode}
+
+% commands
+\newcommand\given{\;\vert\;}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+% Options for exam theoremstyle (no numbers, danish)
+\theoremstyle{plain}
+\newtheorem*{theorem}{Sætning}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{korollar}{Korollar}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+\newtheorem*{alg}{Algoritme}
+\newtheorem*{problem}{Problem}
+
+
+
