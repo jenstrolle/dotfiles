@@ -309,6 +309,11 @@ snippet "([a-zA-Z])bar" "bar" riA
 \overline{`!p snip.rv=match.group(1)`}
 endsnippet
 
+context "math()"
+snippet text "text" iA
+\text{${1:${VISUAL}}}$0
+endsnippet
+
 snippet srt "Square Root" wi
 \sqrt{${1:${VISUAL}}}$0
 endsnippet
