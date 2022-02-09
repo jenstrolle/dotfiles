@@ -17,8 +17,10 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
+
+"Plugin 'jnurmine/Zenburn'
+"Plugin 'altercation/vim-colors-solarized'
+Plugin 'dylanaraps/wal'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
@@ -36,6 +38,9 @@ Plugin 'vim-airline/vim-airline-themes'
 
 Plugin 'davidhalter/jedi-vim' 
 Plugin 'nvie/vim-flake8'
+Plugin 'takac/vim-hardtime'
+
+Plugin 'KeitaNakamura/tex-conceal.vim'
 
 " snippets
 Plugin 'SirVer/ultisnips'
@@ -49,6 +54,8 @@ Plugin 'honza/vim-snippets'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+let g:hardtime_default_on = 1
 
 " split navigation
 set splitbelow
@@ -64,7 +71,7 @@ let maplocalleader=","
 
 " set wrapping and textwidth set to 79 by default because of PEP8 limit
 set wrap
-set textwidth=79
+set textwidth=85
 
 " enable folding
 set foldmethod=indent
@@ -99,7 +106,7 @@ au BufNewFile, BufRead *.js, *.html, *.css
     \ shiftwidth=2
 
 au BufNewFile, BufRead *.tex
-    \ set tabstop=8
+    \ set tabstop=4
 
 
 " flag whitespace
@@ -107,9 +114,10 @@ au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 2 
 
 let g:airline#extensions#whitespace#skip_indent_check_ft =
-   \  {'tex': ['mixed-indent-file']}
+   \  {'tex': ['mixed-indent-file', 'indent']}
 
 
 if !exists('g:airline_symbols')
@@ -122,8 +130,11 @@ let g:airline_symbols.maxlinenr = '☰  '
 
 syntax enable
 set background=dark
-colorscheme solarized
+colorscheme wal
 set termguicolors
+" setlocal spell
+"set spelllang=en_us
+"inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
 " utf-8
 set encoding=utf-8
@@ -166,22 +177,22 @@ let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_python_checkers = ['pylint', 'python'] 
 
 " ensure syntastic starts in passive mode for all other than tex
-let g:syntastic_mode_map = {
-	\ "mode": "passive",
-	\ "active_filetypes": ["tex"],	
-	\ "passive_filetypes": [] }
+"let g:syntastic_mode_map = {
+"	\ "mode": "passive",
+"	\ "active_filetypes": ["tex"],	
+"	\ "passive_filetypes": [] }
+
 nnoremap <leader>e :SyntasticCheck<CR>
 
 " syntastic checkers for latex
 let g:syntastic_tex_checkers = ['chktex']
 
-" remove warning 3 in syntastic_tex_chktex:A
+" remove warning 3 in syntastic_tex_chktex
 " warning 3: You should enclose the previous parenthesis with `{}'.
-let g:syntastic_tex_chktex_args = '-n3'
+let g:syntastic_tex_chktex_args = '-n3, -n10'
 
 " I think this checks on save?
 " let g:syntastic_check_on_wq = 1
-
 
 " python highlighting
 let python_highlight_all=1
@@ -197,9 +208,9 @@ set rnu
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
 "" default values
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
@@ -210,12 +221,16 @@ let g:UltiSnipsEditSplit="vertical"
 " consider adding synctex capability https://bit.ly/3Gd8Br5
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
-let g:vimtex_quickfix_mode = 0
+"let g:vimtex_quickfix_mode = 0
 let g:tex_conceal='abdmg'
+let g:tex_conceal_frac=1
+
+"hi Conceal ctermbg=none
+"" Want to remove highlighting on concealed math stuff.
+highlight Conceal ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+
 
 " Toggle conceallevel
 nnoremap <Leader>c :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . &cole <CR>
 
-" Want to remove highlighting on concealed math stuff.
-" highlight Conceal ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 

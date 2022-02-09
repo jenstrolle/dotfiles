@@ -1,44 +1,247 @@
 \documentclass[a4paper,oneside,article]{memoir}
 
-\usepackage[utf8]{inputenc}  % Korrekt håndtering af æ, ø og å
-\usepackage[T1]{fontenc}  % Korrekt håndtering af æ, ø og å
-\usepackage{microtype}  % Typografisk magi! Giver bl.a. pænere orddeling
-\usepackage{graphicx}  % Gør det muligt at indsætte billeder
-\usepackage{amsmath}  % Giver adgang til uundværlige matematikting
-\usepackage{amssymb,amsmath,amsfonts}
-\usepackage{amsthm}
-\usepackage[english]{babel}  % Danske betegnelser og orddeling
-%\renewcommand{\danishhyphenmins}{22}  % Bedre dansk orddeling
-\usepackage{listings}
-\usepackage{xfrac} % Seje brøker
-\usepackage{bm} % Mere fedt matematik
-\usepackage{comment} % Bedre kommentarer
-\usepackage[notextcomp]{kpfonts} % M&I symboler
-\usepackage{tikz}  % Tegne grafer
-\usepackage{float}
-\usepackage{titling}
-\usepackage{hyperref}
-\usepackage{cleveref}
-\usepackage{csquotes}
-\usepackage[linesnumbered,lined,boxed,commentsnumbered]{algorithm2e}
-\usepackage{algpseudocode}
 
-% commands
-\newcommand\given{\;\vert\;}
+%%%%%%%%%%%%%%%%%%%%%%
+%  Prettier writing  %
+%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc}      	% Correct handling of æ, ø, å
+\usepackage[T1]{fontenc}  		% Correct handling of æ, ø, å
+\usepackage{microtype}  		% Better hyphenation
+\usepackage[english, danish]{babel}     % Better language support
+% \renewcommand{\danishhyphenmins}{22}  % Better danish hyphenation
+
+\usepackage{enumitem} 			% Support for alphabetical enumeration
+
+% \usepackage[notextcomp]{kpfonts} 	% Change font to M&I font
+% \usepackage{textcomp} 		% More symbols
+
+\usepackage{parskip}   			% Don't indent paragraphs, leave space between
+\usepackage{emptypage} 			% Hide page number when page is empty
+\usepackage{xcolor}    			% More colors
+\usepackage{subcaption}			% Makes subcaptions in figures possible
+
+
+%%%%%%%%%%%%%
+%  Figures  %
+%%%%%%%%%%%%%
+
+% Figure support as explained in my blog post.
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{%
+    \def\svgwidth{\columnwidth}
+    \import{./figures/}{#1.pdf_tex}
+}
+
+
+%%%%%%%%%%%%%%%%
+%  Math stuff  %
+%%%%%%%%%%%%%%%%
+
+\usepackage{amsmath}  			% Access to invaluable math stuff
+\usepackage{amssymb}  			% Access to more math symbols
+\usepackage{amsfonts} 			% More math fonts
+\usepackage{amsthm}   			% Access to theoremstyles
+\usepackage{xfrac}    			% More options for fractions
+\usepackage{mathtools}			% Tools for amsmath, see https://bit.ly/3rE9g0E
+\usepackage{cancel}   			% For cancelling things in fractions
+\usepackage{bm}       			% Bold math
+
+%%%%%%%%%%%%%%%%
+%  Code stuff  %
+%%%%%%%%%%%%%%%%
+
+\usepackage{listings}  			% Write code inline
+\usepackage{tikz}  			% For drawing figures in TeX
+\usepackage{algpseudocode}  		% Prettier algorithms
+
+
+%%%%%%%%%%%%%%%%%
+%  Referencing  %
+%%%%%%%%%%%%%%%%%
+
+\usepackage{hyperref} 			% Links
+\usepackage{cleveref} 			% References
+
+
+%%%%%%%%%%%
+%  Other  %
+%%%%%%%%%%%
+
+\usepackage{float}     			% For moving figures and other stuff around
+\usepackage{titling}   			% For better titles 
+\usepackage{csquotes}  			% Better quotes
+
+
+%%%%%%%%%%%%%%
+%  Commands  %
+%%%%%%%%%%%%%%
+
+% Basic shortcuts
+\newcommand\N{\ensuremath{\mathbb{N}}}
+\newcommand\R{\ensuremath{\mathbb{R}}}
+\newcommand\Z{\ensuremath{\mathbb{Z}}}
+\newcommand\Q{\ensuremath{\mathbb{Q}}}
+\newcommand\C{\ensuremath{\mathbb{C}}}
+\newcommand\E{\ensuremath{\mathbb{E}}}
+\renewcommand\P{\ensuremath{\mathbb{P}}}
+\renewcommand\O{\ensuremath{\emptyset}}
+
+% Make implies and impliedby shorter
+\let\implies\Rightarrow
+\let\impliedby\Leftarrow
+\let\iff\Leftrightarrow
+\let\epsilon\varepsilon
+\let\phi\varphi
+
+% Add \contra symbol to denote contradiction
+\usepackage{stmaryrd} 			% for \lightning
+\newcommand\contra{\scalebox{1.5}{$\lightning$}}
+
+% Put x \to \infty below \lim
+\let\svlim\lim\def\lim{\svlim\limits}
+
+% Other commands
+\DeclareMathOperator{\given}{\;\vert\;}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
-% Options for exam theoremstyle (no numbers, danish)
+
+%%%%%%%%%%%%%%%%%%
+%  Environments  %
+%%%%%%%%%%%%%%%%%%
+
+\makeatother
+
+% Box around theorems, etc.
+% \usepackage{mdframed}
+% \mdfsetup{skipabove=1em,skipbelow=0em}
+
+% Options for exam theoremstyle (no numbers, english)
 \theoremstyle{plain}
-\newtheorem*{theorem}{Sætning}
+\newtheorem*{theorem}{Theorem}
 \newtheorem*{proposition}{Proposition}
 \newtheorem*{lemma}{Lemma}
-\newtheorem*{korollar}{Korollar}
+\newtheorem*{corollary}{Corollary}
 
 \theoremstyle{definition}
 \newtheorem*{definition}{Definition}
-\newtheorem*{alg}{Algoritme}
+\newtheorem*{alg}{Algorithm}
 \newtheorem*{problem}{Problem}
 
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% Fix some spacing
+% http://tex.stackexchange.com/questions/22119/how-can-i-change-the-spacing-before-theorems-with-amsthm
+\makeatletter
+\def\thm@space@setup{%
+  \thm@preskip=\parskip \thm@postskip=0pt
+}
+
+% Exercises
+% Use \exercise}{num} to define exercise
+% and \subexercise{num} to define subexercise
+\newcommand{\exercise}[1]{%
+    \def\@exercise{#1}%
+    \subsection*{Exercise #1}
+}
+
+\newcommand{\subexercise}[1]{%
+    \subsubsection*{Exercise \@oefening.#1}
+}
 
 
+% \lecture starts a new lecture 
+%
+% Usage:
+% \lecture{1}{date}{title}
+%
+% This adds a section heading with the number / title of the lecture and a
+% margin paragraph with the date.
+
+% I use \dateparts here to hide the year. This way, I can easily parse
+% the date of each lecture unambiguously while still having a human-friendly
+% short format printed to the pdf.
+
+\usepackage{xifthen}
+\def\testdateparts#1{\dateparts#1\relax}
+\def\dateparts#1 #2 #3 #4 #5\relax{
+    \marginpar{\small\textsf{\mbox{#1 #2 #3 #5}}}
+}
+
+\def\@lecture{}%
+\newcommand{\lecture}[3]{
+    \ifthenelse{\isempty{#3}}{%
+        \def\@lecture{Lecture #1}%
+    }{%
+        \def\@lecture{Lecture #1: #3}%
+    }%
+    \subsection*{\@lecture}
+    \marginpar{\small\textsf{\mbox{#2}}}
+}
+
+% These are the fancy headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% LE: left even
+% RO: right odd
+% CE, CO: center even, center odd
+% My name for when I print my lecture notes to use for an open book exam.
+% \fancyhead[LE,RO]{Jens Trolle}
+
+\fancyhead[RO,LE]{\@lecture} % Right odd,  Left even
+\fancyhead[RE,LO]{}          % Right even, Left odd
+
+\fancyfoot[RO,LE]{\thepage}  % Right odd,  Left even
+\fancyfoot[RE,LO]{}          % Right even, Left odd
+\fancyfoot[C]{\leftmark}     % Center
+
+\makeatother
+
+% Todonotes and inline notes in fancy boxes
+\usepackage{todonotes}
+\usepackage{tcolorbox}
+
+% Make boxes breakable
+\tcbuselibrary{breakable}
+
+% Rettelse is correction in Danish
+% Usage:
+% \begin{rettelse}
+%     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+%     tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+%     vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+%     no sea takimata sanctus est Lorem ipsum dolor sit amet.
+% \end{rettelse}
+\newenvironment{rettelse}{\begin{tcolorbox}[
+    arc=0mm,
+    colback=white,
+    colframe=green!60!black,
+    title=Opmerking,
+    fonttitle=\sffamily,
+    breakable
+]}{\end{tcolorbox}}
+
+% Note. Same as 'rettelse' but color of box is different
+\newenvironment{noot}[1]{\begin{tcolorbox}[
+    arc=0mm,
+    colback=white,
+    colframe=white!60!black,
+    title=#1,
+    fonttitle=\sffamily,
+    breakable
+]}{\end{tcolorbox}}
+
+
+
+% Fix some stuff
+% %http://tex.stackexchange.com/questions/76273/multiple-pdfs-with-page-group-included-in-a-single-page-warning
+\pdfsuppresswarningpagegroup=1
+
+% Name
+\author{Jens Trolle}
