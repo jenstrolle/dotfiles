@@ -32,12 +32,6 @@ snippet cnt "Center" bi
 \end{center}
 endsnippet
 
-snippet desc "Description" bi
-\begin{description}
-	\item[${1:${VISUAL}}] $0
-\end{description}
-endsnippet
-
 snippet lemma "Lemma" bi
 \begin{lemma}
 	${0:${VISUAL}}
@@ -56,16 +50,10 @@ snippet thrm "Theorem" bi
 \end{theorem}
 endsnippet
 
-snippet post "postulate" bi
-\begin{postulate}[$1]
-	${0:${VISUAL}}
-\end{postulate}
-endsnippet
-
 snippet prf "Proof" bi
-\begin{myproof}[$1]
+\begin{proof}[$1]
 	${0:${VISUAL}}
-\end{myproof}
+\end{proof}
 endsnippet
 
 snippet def "Definition" bi
@@ -78,6 +66,12 @@ snippet nte "Note" bi
 \begin{note}[$1]
 	${0:${VISUAL}}
 \end{note}
+endsnippet
+
+snippet rettelse "Rettelse" bi
+\begin{rettelse}
+	${0:${VISUAL}}
+\end{rettelse}
 endsnippet
 
 snippet prob "Problem" bi
@@ -98,18 +92,6 @@ snippet example "Example" bi
 \end{example}
 endsnippet
 
-snippet notion "Notation" bi
-\begin{notation}[$1]
-	$0${VISUAL}
-\end{notation}
-endsnippet
-
-snippet conc "Conclusion" bi
-\begin{conclusion}[$1]
-	$0${VISUAL}
-\end{conclusion}
-endsnippet
-
 snippet fig "Figure environment" bi
 \begin{figure}[${1:htpb}]
 	\centering
@@ -120,7 +102,7 @@ snippet fig "Figure environment" bi
 endsnippet
 
 snippet enum "Enumerate" bi
-\begin{enumerate}
+\begin{enumerate}[$1]
 	\item ${0:${VISUAL}}
 \end{enumerate}
 endsnippet
@@ -131,17 +113,10 @@ snippet item "Itemize" bi
 \end{itemize}
 endsnippet
 
-
 snippet case "cases" bi
 \begin{cases}
 	${0:${VISUAL}}
 \end{cases}
-endsnippet
-
-snippet abs "abstract environment" b
-\begin{abstract}
-	${0:${VISUAL}}
-.\end{abstract}
 endsnippet
 
 snippet tab "tabular / array environment" b
@@ -199,15 +174,6 @@ endsnippet
 snippet nnn "bigcap" w
 \bigcap_{${1:i \in ${2: I}}} $0
 endsnippet
-
-snippet HH "H" w
-\mathbb{H}
-endsnippet
-
-snippet DD "D" w
-\mathbb{D}
-endsnippet
-
 
 snippet mk "Math" wA
 $${1}$`!p
@@ -291,7 +257,7 @@ snippet ss "Super Script" i
 ^{$1}$0
 endsnippet
 
-snippet __ "subscript" Aw
+snippet __ "subscript" i
 _{$1}$0
 endsnippet
 
@@ -309,6 +275,26 @@ endsnippet
 
 snippet ZZ "Z" iA
 \Z
+endsnippet
+
+snippet NN "N" iA
+\N
+endsnippet
+
+snippet EE "E" iA
+\E
+endsnippet
+
+snippet PP "P" iA
+\P
+endsnippet
+
+snippet FF "F" w
+\mathcal{F}
+endsnippet
+
+snippet ofp "Omega, F, P" w
+\left( \Omega, \mathcal{F}, P \right)
 endsnippet
 
 priority 10
@@ -335,10 +321,6 @@ snippet bf "Bold" wi
 \bf{${1:${VISUAL}}}$0
 endsnippet
 
-snippet it "Italic" wi
-\it{${1:${VISUAL}}}$0
-endsnippet
-
 snippet un "Underline" wi
 \un{${1:${VISUAL}}}$0
 endsnippet
@@ -347,7 +329,7 @@ snippet rm "Text" wi
 \rm{${1:${VISUAL}}}$0
 endsnippet
 
-snippet itm "Item" wi
+snippet it "Item" wi
 \item ${0:${VISUAL}}
 endsnippet
 
@@ -404,7 +386,7 @@ snippet conj "conjugate" w
 endsnippet
 
 snippet sum "sum" w
-\sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
+\sum_{i=${1:1}}^{${2:n}} ${3:a_n z^n}
 endsnippet
 
 snippet taylor "taylor" w
@@ -493,7 +475,7 @@ snippet !> "mapsto" Aw
 endsnippet
 
 snippet letg "Let G be a graph" iA
-Let $G = (V, E) be a graph$
+Let $G = (V, E) be a graph$ $0
 endsnippet
 
 #############
@@ -508,21 +490,11 @@ snippet docls "Document Class" bA
 \documentclass{$1}$0
 endsnippet
 
-snippet tmplt "Template"
-\documentclass{article}
+snippet template "Template"
+\input{"~/preamble.tex"}
 
-\usepackage{import}
-\usepackage{pdfpages}
-\usepackage{transparent}
-\usepackage{xcolor}
-$1
-
-\newcommand{\incfig}[2][1]{%
-		\def\svgwidth{#1\columnwidth}
-		\import{./figures/}{#2.pdf_tex}
-}
-$2
-\pdfsuppresswarningpagegroup=1
+\date{$1}
+\title{$2}
 
 \begin{document}
 		$0
