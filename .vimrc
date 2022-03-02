@@ -20,11 +20,12 @@ Plugin 'scrooloose/syntastic'
 
 "Plugin 'jnurmine/Zenburn'
 "Plugin 'altercation/vim-colors-solarized'
-Plugin 'dylanaraps/wal'
+"Plugin 'dracula/vim', { 'name': 'dracula' } Alternative theme
+Plugin 'dylanaraps/wal.vim'
 
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'lervag/vimtex'
 
@@ -48,7 +49,8 @@ Plugin 'honza/vim-snippets'
 
 " Plugin 'valloric/YouCompleteMe'
 
-
+" Devicons
+Plugin 'ryanoasis/vim-devicons'
 
 
 " All of your Plugins must be added before the following line
@@ -56,6 +58,10 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 let g:hardtime_default_on = 1
+
+" Rebind C-W to C-M
+nnoremap <C-M> <C-W>
+
 
 " split navigation
 set splitbelow
@@ -96,10 +102,14 @@ au BufNewFile,BufRead *.py
     \ autoindent 
     \ fileformat=unix
 
+"" flake8 settings
 " run flake8 on python save
 autocmd BufWritePost *.py call flake8#Flake8()
+let g:flake8_show_in_file=1 
+let g:flake8_show_in_gutter=1
 
-" settings for other .files
+
+""" settings for other .files
 au BufNewFile, BufRead *.js, *.html, *.css
     \ set tabstop=2
     \ softtabstop=2
@@ -116,8 +126,10 @@ au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 2 
 
+let g:airline_powerline_fonts = 1
+
 let g:airline#extensions#whitespace#skip_indent_check_ft =
-   \  {'tex': ['mixed-indent-file', 'indent']}
+   \  {'tex': ['mixed-indent-file', 'indent', 'trailing']}
 
 
 if !exists('g:airline_symbols')
@@ -132,6 +144,9 @@ syntax enable
 set background=dark
 colorscheme wal
 set termguicolors
+
+"set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ Book\ 12
+
 " setlocal spell
 "set spelllang=en_us
 "inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
@@ -221,9 +236,12 @@ let g:UltiSnipsEditSplit="vertical"
 " consider adding synctex capability https://bit.ly/3Gd8Br5
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
-"let g:vimtex_quickfix_mode = 0
 let g:tex_conceal='abdmg'
-let g:tex_conceal_frac=1
+
+" set vimtex default quickfix mode 0 and add binds for toggling
+let g:vimtex_quickfix_mode = 0
+nnoremap <leader>q :let g:vimtex_quickfix_mode=0<CR>
+nnoremap <leader>Q :let g:vimtex_quickfix_mode=2<CR>
 
 "hi Conceal ctermbg=none
 "" Want to remove highlighting on concealed math stuff.

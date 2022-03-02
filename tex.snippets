@@ -26,6 +26,18 @@ snippet beg "begin{} / end{}" bi
 \end{$1}
 endsnippet
 
+snippet ali "align" bi
+\begin{align}
+	${0:${VISUAL}}
+\end{align}
+endsnippet
+
+snippet ali* "align*" bi
+\begin{align*}
+	${0:${VISUAL}}
+\end{align*}
+endsnippet
+
 snippet cnt "Center" bi
 \begin{center}
 	${0:${VISUAL}}
@@ -56,6 +68,12 @@ snippet prf "Proof" bi
 \end{proof}
 endsnippet
 
+snippet sol "Solution" bi
+\begin{solution}
+	$0
+\end{solution}
+endsnippet
+
 snippet def "Definition" bi
 \begin{definition}[$1]
 	${0:${VISUAL}}
@@ -66,6 +84,12 @@ snippet nte "Note" bi
 \begin{note}[$1]
 	${0:${VISUAL}}
 \end{note}
+endsnippet
+
+snippet obs "Observation" bi
+\begin{obs}[$1]
+	${0:${VISUAL}}
+\end{obs}
 endsnippet
 
 snippet rettelse "Rettelse" bi
@@ -151,8 +175,12 @@ snippet set "set" wA
 \\{$1\\} $0
 endsnippet
 
+snippet sm "setminus" w
+\setminus $0
+endsnippet
+
 snippet cc "subset" w
-\subset 
+\subseteq
 endsnippet
 
 snippet inn "in " w
@@ -192,6 +220,16 @@ endsnippet
 
 snippet frac "Fraction" w
 \frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet prime "Prime" iA
+^{\prime}$0
+endsnippet
+
+context "math()"
+snippet star "Star" iA
+^{\ast}$0
 endsnippet
 
 context "math()"
@@ -245,10 +283,12 @@ snippet compl "Complement" i
 ^{c}
 endsnippet
 
+context "math()"
 snippet '([A-Za-z])(\d)' "auto subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
 
+context "math()"
 snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
 endsnippet
@@ -285,7 +325,7 @@ snippet EE "E" iA
 \E
 endsnippet
 
-snippet PP "P" iA
+snippet PP "P" w
 \P
 endsnippet
 
@@ -299,14 +339,39 @@ endsnippet
 
 priority 10
 context "math()"
+snippet "cal" "cal" riA
+\mathcal{$1}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet "([a-zA-Z])cal" "cal" riA
+\mathcal{`!p snip.rv=match.group(1)`}
+endsnippet
+
+
+priority 10
+context "math()"
 snippet "bar" "bar" riA
-\overline{$1}$0
+\bar{$1}$0
 endsnippet
 
 priority 100
 context "math()"
 snippet "([a-zA-Z])bar" "bar" riA
-\overline{`!p snip.rv=match.group(1)`}
+\bar{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 10
+context "math()"
+snippet "tilde" "tilde" riA
+\tilde{$1}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet "([a-zA-Z])tilde" "tilde" riA
+\tilde{`!p snip.rv=match.group(1)`}
 endsnippet
 
 context "math()"
@@ -380,6 +445,10 @@ endsnippet
 
 snippet lr[ "left[ right]" i
 \left[ ${1:${VISUAL}} \right] $0
+endsnippet
+
+snippet lr][ "left] right [" i
+\left] ${1:${VISUAL}} \right[
 endsnippet
 
 snippet lra "leftangle rightangle" wi
@@ -483,6 +552,19 @@ snippet letg "Let G be a graph" iA
 Let $G = (V, E) be a graph$ $0
 endsnippet
 
+context "math()"
+snippet space "Spacing" iA
+\quad \text{$1} \quad $0
+endsnippet
+
+snippet abs "Absolute value" Aw
+\lvert $1 \rvert $0
+endsnippet
+
+snippet norm "Norm" Aw
+\lVert $1 \rVert $0
+endsnippet
+
 #############
 # PRE-AMBLE #
 #############
@@ -495,17 +577,41 @@ snippet docls "Document Class" bA
 \documentclass{$1}$0
 endsnippet
 
-snippet template "Template"
-\input{"~/preamble.tex"}
+snippet lecture "Lecture" w
+\lecture{$1}{datetime$2}{$3}$0
+endsnippet
 
-\date{$1}
-\title{$2}
+snippet te "Theoretical Exercises" w
+\te{$1}{datetime$2}{$3}$0
+endsnippet
+
+snippet maintemp "main template" w
+\input{"/home/trolle/preamble.tex"}
+
+\title{$1}
 
 \begin{document}
-		$0
+\maketitle
+
+% start lectures
+\input{$0}
+% end lectures
+
 \end{document}
 endsnippet
 
+snippet template "General template" w
+\input{"/home/trolle/preamble.tex"}
+
+\date{date$1}
+\title{$2}
+
+\begin{document}
+\maketitle
+$0
+
+\end{document}
+endsnippet
 
 #########
 # OTHER #

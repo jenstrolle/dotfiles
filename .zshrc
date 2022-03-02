@@ -12,7 +12,7 @@ HIST_STAMPS="dd/mm/yyyy"
 
 
 # Which plugins would you like to load?
-plugins=(git z zsh-autosuggestions)
+plugins=(git z zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -33,7 +33,66 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias upup="sudo apt-get update && sudo apt-get upgrade -y"
 
+# alias for "with fzf"
+alias -g Z='| fzf' 
+
+function course() {
+	
+	ln -nfs /home/trolle/uni/"$1"sem/"$2" /home/trolle/uni/current-course
+}
+
+
+## FZF options
+# source from .fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# set fzf defaults
+## long preview str explained here https://bit.ly/35IT061
+export FZF_DEFAULT_OPTS="--layout=reverse 
+--border 
+--height 60%
+--multi
+--preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
+--bind '?:toggle-preview'
+--bind 'ctrl-e:execute(echo {+} | xargs -o vim)'
+"
+
+# set fzf default commands
+
+
+## replace find in fzf with fd
+## again see https://bit.ly/35IT061
+
+# fzf's command
+export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git'"
+
+# CTRL-T's command
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# ALT-C's command
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+
+# for more info see fzf/shell/completion.zsh
+
+_fzf_compgen_path() {
+    fd . "$1"
+}
+
+_fzf_compgen_dir() {
+    fd --type d . "$1"
+}
+
+
+# like normal z when used with arguments but 
+# displays an fzf prompt when used without.
+
+unalias z 2> /dev/null
+z() {
+    [ $# -gt 0 ] && _z "$*" && return
+    cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
 
 ### Old MB15 config
 # if command -v pyenv 1>/dev/null 2>&1; then
@@ -96,5 +155,3 @@ source $ZSH/oh-my-zsh.sh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
-

@@ -8,7 +8,7 @@
 \usepackage[utf8]{inputenc}      	% Correct handling of æ, ø, å
 \usepackage[T1]{fontenc}  		% Correct handling of æ, ø, å
 \usepackage{microtype}  		% Better hyphenation
-\usepackage[english, danish]{babel}     % Better language support
+\usepackage[english]{babel}     % Better language support
 % \renewcommand{\danishhyphenmins}{22}  % Better danish hyphenation
 
 \usepackage{enumitem} 			% Support for alphabetical enumeration
@@ -26,7 +26,7 @@
 %  Figures  %
 %%%%%%%%%%%%%
 
-% Figure support as explained in my blog post.
+% Figure support as explained in Castieldev blogpost.
 \usepackage{import}
 \usepackage{xifthen}
 \usepackage{pdfpages}
@@ -95,7 +95,9 @@
 \let\impliedby\Leftarrow
 \let\iff\Leftrightarrow
 \let\epsilon\varepsilon
+\let\temp\phi
 \let\phi\varphi
+\let\varphi\temp
 
 % Add \contra symbol to denote contradiction
 \usepackage{stmaryrd} 			% for \lightning
@@ -108,6 +110,10 @@
 \DeclareMathOperator{\given}{\; \vert \;}
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\ceq}{\coloneqq}
+\DeclareMathOperator{\var}{Var}
+\DeclareMathOperator{\e}{e}
+
 
 
 %%%%%%%%%%%%%%%%%%
@@ -131,9 +137,22 @@
 \newtheorem*{definition}{Definition}
 \newtheorem*{alg}{Algorithm}
 \newtheorem*{problem}{Problem}
+\newtheorem*{example}{Example}
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+\newtheorem*{obs}{\textbf{OBS}}
+
+% Change proofname from "bevis" to "proof"
+\renewcommand*{\proofname}{Proof}
+
+% Make new command for solutions to exercises
+\newenvironment*{solution}{\paragraph{Solution:}}{\null\hfill$\diamond$}
+
+% Add diamond at end of examples
+\AtEndEnvironment{example}{\null\hfill$\diamond$}%
+
 
 % Fix some spacing
 % http://tex.stackexchange.com/questions/22119/how-can-i-change-the-spacing-before-theorems-with-amsthm
@@ -143,7 +162,7 @@
 }
 
 % Exercises
-% Use \exercise}{num} to define exercise
+% Use \exercise{num} to define exercise
 % and \subexercise{num} to define subexercise
 \newcommand{\exercise}[1]{%
     \def\@exercise{#1}%
@@ -151,7 +170,7 @@
 }
 
 \newcommand{\subexercise}[1]{%
-    \subsubsection*{Exercise \@oefening.#1}
+    \subsubsection*{Exercise \@exercise.#1}
 }
 
 
@@ -184,6 +203,24 @@
     \marginpar{\small\textsf{\mbox{#2}}}
 }
 
+\usepackage{xifthen}
+\def\testdateparts#1{\dateparts#1\relax}
+\def\dateparts#1 #2 #3 #4 #5\relax{
+    \marginpar{\small\textsf{\mbox{#1 #2 #3 #5}}}
+}
+
+\def\@te{}%
+\newcommand{\te}[3]{
+    \ifthenelse{\isempty{#3}}{%
+        \def\@te{TEs #1}%
+    }{%
+        \def\@te{TEs #1: #3}%
+    }%
+    \subsection*{\@te}
+    \marginpar{\small\textsf{\mbox{#2}}}
+}
+
+
 % These are the fancy headers
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -194,11 +231,11 @@
 % My name for when I print my lecture notes to use for an open book exam.
 % \fancyhead[LE,RO]{Jens Trolle}
 
-\fancyhead[RO,LE]{\@lecture} % Right odd,  Left even
-\fancyhead[RE,LO]{}          % Right even, Left odd
+\fancyhead[RO,L]{\@lecture} % Right odd,  Left even
+\fancyhead[R,LO]{}          % Right even, Left odd
 
-\fancyfoot[RO,LE]{\thepage}  % Right odd,  Left even
-\fancyfoot[RE,LO]{}          % Right even, Left odd
+\fancyfoot[RO,L]{\thepage}  % Right odd,  Left even
+\fancyfoot[R,LO]{}          % Right even, Left odd
 \fancyfoot[C]{\leftmark}     % Center
 
 \makeatother
