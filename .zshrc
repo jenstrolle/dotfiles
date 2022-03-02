@@ -16,10 +16,8 @@ plugins=(git z zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
+## wal https://bit.ly/3pvl5Vy2
 # sets theme on terminal startup
-# (wal -r &)
-# wal --theme base16-nord
-# clear
 (cat ~/.cache/wal/sequences &)
 
 # User configuration
