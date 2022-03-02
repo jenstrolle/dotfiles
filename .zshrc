@@ -38,6 +38,9 @@ alias upup="sudo apt-get update && sudo apt-get upgrade -y"
 # alias for "with fzf"
 alias -g Z='| fzf' 
 
+# YEET
+alias yeet='git push'
+
 function course() {
 	
 	ln -nfs /home/trolle/uni/"$1"sem/"$2" /home/trolle/uni/current-course
