@@ -1,6 +1,8 @@
 set nocompatible              " required
 filetype off                  " required
 
+""" Vundle Setup
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -11,53 +13,121 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" add all your plugins here (note older versions of Vundle
-" used Bundle instead of Plugin)
 
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'scrooloose/syntastic'
-
-"Plugin 'jnurmine/Zenburn'
-"Plugin 'altercation/vim-colors-solarized'
-"Plugin 'dracula/vim', { 'name': 'dracula' } Alternative theme
-Plugin 'dylanaraps/wal.vim'
-
-Plugin 'scrooloose/nerdtree'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'lervag/vimtex'
-
-" like powerline
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-
-" original powerline if needed
-" Bundle 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
-
-
-Plugin 'davidhalter/jedi-vim' 
-Plugin 'nvie/vim-flake8'
-Plugin 'takac/vim-hardtime'
-
-Plugin 'KeitaNakamura/tex-conceal.vim'
+""" Plugins
 
 " snippets
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 
-" Plugin 'valloric/YouCompleteMe'
+" supertab
+Plugin 'ervandew/supertab'
+
+" visual
+"" - Alternative themes
+"" Plugin 'jnurmine/Zenburn'
+"" Plugin 'altercation/vim-colors-solarized'
+"" Plugin 'dracula/vim', { 'name': 'dracula' } 
+
+Plugin 'dylanaraps/wal.vim'
+
+" statusline
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " Devicons
 Plugin 'ryanoasis/vim-devicons'
 
+" autocomplete
+Plugin 'ycm-core/YouCompleteMe'
+
+" general syntax checking
+Plugin 'scrooloose/syntastic'
+
+" Python Plugins
+"" Folding with docstrings
+Plugin 'tmhedberg/SimpylFold'
+
+"" Automatic indenting in python 
+Plugin 'vim-scripts/indentpython.vim'
+
+" Explore with nerdtree
+Plugin 'scrooloose/nerdtree'
+
+" fuzzy search in vim https://bit.ly/3HI7aBS
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'junegunn/fzf.vim'
+"" Plugin 'ctrlpvim/ctrlp.vim' old fuzzy file finder
+
+" LaTeX
+Plugin 'lervag/vimtex'
+
+"" better tex concealing
+Plugin 'KeitaNakamura/tex-conceal.vim'
+
+" hardmode disables multiple presses of hkjl
+Plugin 'takac/vim-hardtime'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+
+""" enable hardtime
 let g:hardtime_default_on = 1
+
+
+""" utf-8
+set encoding=utf-8
+
+
+""" visuals
+
+" linenumbering
+set nu
+set rnu
+
+" general
+syntax enable
+set background=dark
+colorscheme wal
+set termguicolors
+
+" set wrapping and textwidth set to 79 by default
+set wrap
+set textwidth=79
+
+" folding
+set foldmethod=indent
+set foldlevel=99
+
+"" show folded docstring
+let g:SimpylFold_docstring_preview=1
+
+" when opening vim open explorer in left split
+autocmd VimEnter * NERDTree
+let NERDTreeShowHidden=1
+
+" airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 2 
+let g:airline_powerline_fonts = 1
+
+"" ignore whitespace checks in .tex files
+let g:airline#extensions#whitespace#skip_indent_check_ft =
+   \  {'tex': ['mixed-indent-file', 'indent', 'trailing']}
+
+"" new symbols in airline
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+  endif
+
+let g:airline_symbols.linenr = '  ␊:'
+let g:airline_symbols.colnr = '  ℅:'
+let g:airline_symbols.maxlinenr = '☰  '
+
+
+""" all around binds
 
 " Rebind C-W to C-M
 nnoremap <C-M> <C-W>
@@ -72,28 +142,21 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+
+" set leaders
 let mapleader=","
 let maplocalleader=","
-
-" set wrapping and textwidth set to 79 by default because of PEP8 limit
-set wrap
-set textwidth=85
-
-" enable folding
-set foldmethod=indent
-set foldlevel=99
 
 " folding bind with spacebar
 nnoremap <space> za
 
-" when opening vim open explorer in left split
-autocmd VimEnter * NERDTree
-let NERDTreeShowHidden=1
 
-" show folded docstring
-let g:SimpylFold_docstring_preview=1
+""" Python
 
-" PEP8 in python
+" python highlighting
+let python_highlight_all=1
+
+" Default style for .py
 au BufNewFile,BufRead *.py
     \ set tabstop=4 
     \ softtabstop=4 
@@ -102,138 +165,18 @@ au BufNewFile,BufRead *.py
     \ autoindent 
     \ fileformat=unix
 
-"" flake8 settings
-" run flake8 on python save
-autocmd BufWritePost *.py call flake8#Flake8()
-let g:flake8_show_in_file=1 
-let g:flake8_show_in_gutter=1
-
-
-""" settings for other .files
-au BufNewFile, BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ softtabstop=2
-    \ shiftwidth=2
-
-au BufNewFile, BufRead *.tex
-    \ set tabstop=4
-
-
 " flag whitespace
 au BufRead, BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
-" airline
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 2 
-
-let g:airline_powerline_fonts = 1
-
-let g:airline#extensions#whitespace#skip_indent_check_ft =
-   \  {'tex': ['mixed-indent-file', 'indent', 'trailing']}
 
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-  endif
-
-let g:airline_symbols.linenr = '  ␊:'
-let g:airline_symbols.colnr = '  ℅:'
-let g:airline_symbols.maxlinenr = '☰  '
-
-syntax enable
-set background=dark
-colorscheme wal
-set termguicolors
-
-"set guifont=DejaVuSansMono\ Nerd\ Font\ Mono\ Book\ 12
-
-" setlocal spell
-"set spelllang=en_us
-"inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
-
-" utf-8
-set encoding=utf-8
-
-" " YouCompleteMe settings
-" let g:ycm_autoclose_preview_window_after_completion=1
-" "map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-" 
-" " Turn off YCM
-" nnoremap <leader>y :let g:ycm_auto_trigger=0<CR>
-" " Turn on YCM
-" nnoremap <leader>Y :let g:ycm_auto_trigger=1<CR>
-" 
-" " ycm settings for vim
-" if !exists('g:ycm_semantic_triggers')
-"   let g:ycm_semantic_triggers = {}
-" endif
-" let g:ycm_semantic_triggers.tex = [
-"       \ 're!\\[A-Za-z]*cite[A-Za-z]*(\[[^]]*\]){0,2}{[^}]*',
-"       \ 're!\\[A-Za-z]*ref({[^}]*|range{([^,{}]*(}{)?))',
-"       \ 're!\\hyperref\[[^]]*',
-"       \ 're!\\includegraphics\*?(\[[^]]*\]){0,2}{[^}]*',
-"       \ 're!\\(include(only)?|input){[^}]*',
-"       \ 're!\\\a*(gls|Gls|GLS)(pl)?\a*(\s*\[[^]]*\]){0,2}\s*\{[^}]*',
-"       \ 're!\\includepdf(\s*\[[^]]*\])?\s*\{[^}]*',
-"       \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
-"       \ ]
-
-" syntastic settings
-" overvej at skifte til ALE jf https://bit.ly/3EBXM1b
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_wq = 0
-let g:syntastic_python_python_exec = 'python3'
-let g:syntastic_python_checkers = ['pylint', 'python'] 
-
-" ensure syntastic starts in passive mode for all other than tex
-"let g:syntastic_mode_map = {
-"	\ "mode": "passive",
-"	\ "active_filetypes": ["tex"],	
-"	\ "passive_filetypes": [] }
-
-nnoremap <leader>e :SyntasticCheck<CR>
-
-" syntastic checkers for latex
-let g:syntastic_tex_checkers = ['chktex']
-
-" remove warning 3 in syntastic_tex_chktex
-" warning 3: You should enclose the previous parenthesis with `{}'.
-let g:syntastic_tex_chktex_args = '-n3, -n10'
-
-" I think this checks on save?
-" let g:syntastic_check_on_wq = 1
-
-" python highlighting
-let python_highlight_all=1
-
-" linenumbering
-set nu
-set rnu
-
-
-" Trigger configuration. You need to change this to something other 
-" than <tab> if you use one of the following:
-" 
-" - https://github.com/Valloric/YouCompleteMe
-" - https://github.com/nvim-lua/completion-nvim
-"" default values
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-
-" latex settings
-"
+""" LaTeX
 " consider adding synctex capability https://bit.ly/3Gd8Br5
+
+" default settings for .tex
+au BufNewFile, BufRead *.tex
+    \ set tabstop=4
+
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:tex_conceal='abdmg'
@@ -243,12 +186,87 @@ let g:vimtex_quickfix_mode = 0
 nnoremap <leader>q :let g:vimtex_quickfix_mode=0<CR>
 nnoremap <leader>Q :let g:vimtex_quickfix_mode=2<CR>
 
-"hi Conceal ctermbg=none
-"" Want to remove highlighting on concealed math stuff.
+
+" conceal settings
+
+"" remove conceal highlighting
 highlight Conceal ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 
+"" bind for toggling conceallevel
+nnoremap <Leader>m :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . &cole <CR>
 
-" Toggle conceallevel
-nnoremap <Leader>c :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . &cole <CR>
 
 
+""" syntastic
+""" consider switching to ALE: https://bit.ly/3EBXM1b
+
+" bind for toggling syntastic
+nnoremap <leader>e :SyntasticCheck<CR>
+
+" bind for closing loc list
+nnoremap <leader>a :lclose<CR>
+
+" binds for going to items in loc list
+nnoremap <leader>z :lnext<CR>
+nnoremap <leader>c :lprev<CR>
+
+" populate location list
+let g:syntastic_always_populate_loc_list = 1
+
+" auto open location list
+let g:syntastic_auto_loc_list = 1
+
+" dont do check on open
+let g:syntastic_check_on_open = 0
+
+" check on save
+let g:syntastic_check_wq = 1
+
+" ensure syntastic starts in passive mode for all other than tex
+let g:syntastic_mode_map = {
+	\ "mode": "passive",
+        \ "active_filetypes": ["tex"],	
+        \ "passive_filetypes": [] }
+
+" syntastic python
+let g:syntastic_python_python_exec = 'python3'
+let g:syntastic_python_checkers = ['flake8']
+
+" syntastic tex
+"" syntastic checkers for latex
+let g:syntastic_tex_checkers = ['chktex']
+
+" remove warnings in syntastic_tex_chktex
+" n3: You should enclose the previous parenthesis with `{}'.
+let g:syntastic_tex_chktex_args = '-n3, -n10'
+
+
+" YouCompleteMe
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+
+" UltiSnips
+"" trigger configuration <tab> cannot be used with ycm
+""" default values
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+
+" bind for opening snip window horizontally
+nnoremap <leader>E :UltiSnipsEdit<CR>
+let g:UltiSnipsEditSplit="horizontal"
+
+
+""" spellchecking - consider whether needed
+" setlocal spell
+"set spelllang=en_us
+"inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
+
+""" settings for other .files
+au BufNewFile, BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ softtabstop=2
+    \ shiftwidth=2

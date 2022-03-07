@@ -13,6 +13,9 @@ def env(name):
 	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')")
 	return x != '0' and y != '0'
 
+def fix_indent(snip):
+    vim.eval('feedkeys("\<c-f>")')
+
 endglobal
 
 
@@ -26,13 +29,13 @@ snippet beg "begin{} / end{}" bi
 \end{$1}
 endsnippet
 
-snippet ali "align" bi
+snippet ali "align" w 
 \begin{align}
 	${0:${VISUAL}}
 \end{align}
 endsnippet
 
-snippet ali* "align*" bi
+snippet ali* "align*" w
 \begin{align*}
 	${0:${VISUAL}}
 \end{align*}
@@ -110,6 +113,12 @@ snippet corl "Corollary" bi
 \end{corollary}
 endsnippet
 
+snippet assu "Assumption" bi
+\begin{assumption}[$1]
+	${0:${VISUAL}}
+\end{assumption}
+endsnippet
+
 snippet example "Example" bi
 \begin{example}[$1]
 	${0:${VISUAL}}
@@ -133,7 +142,7 @@ endsnippet
 
 snippet item "Itemize" bi
 \begin{itemize}
-	\item ${0:${VISUAL}}
+\item ${0:${VISUAL}}
 \end{itemize}
 endsnippet
 
@@ -349,6 +358,17 @@ snippet "([a-zA-Z])cal" "cal" riA
 \mathcal{`!p snip.rv=match.group(1)`}
 endsnippet
 
+priority 10
+context "math()"
+snippet "bb" "bb" riA
+\mathbb{$1}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet "([a-zA-Z])bb" "bb" riA
+\mathbb{`!p snip.rv=match.group(1)`}
+endsnippet
 
 priority 10
 context "math()"
@@ -399,9 +419,11 @@ snippet rm "Text" wi
 \rm{${1:${VISUAL}}}$0
 endsnippet
 
-snippet it "Item" wi
-\item ${0:${VISUAL}}
+post_expand "fix_indent(snip)"
+snippet it "Individual item" w
+\item $0
 endsnippet
+
 
 snippet ceil "Ceil" w
 \left\lceil $1 \right\rceil $0
@@ -452,7 +474,7 @@ snippet lr][ "left] right [" i
 endsnippet
 
 snippet lra "leftangle rightangle" wi
-\left<${1:${VISUAL}} \right>$0
+\langle ${1:${VISUAL}} \rangle$0
 endsnippet
 
 snippet conj "conjugate" w
@@ -460,7 +482,11 @@ snippet conj "conjugate" w
 endsnippet
 
 snippet sum "sum" w
-\sum_{i=${1:1}}^{${2:n}} ${3:a_n z^n}
+\sum_{${1:i=1}}^{${2:n}} ${3:a_n z^n}
+endsnippet
+
+snippet int "integral" w
+\int_{$1}^{$2} $3 \; \text{d}$4 $0
 endsnippet
 
 snippet taylor "taylor" w
@@ -629,6 +655,9 @@ snippet ni "Non-indented paragraph" bi
 \noindent
 endsnippet
 
+snippet ref "reference" w
+~\cref[$1]{$2} $0
+endsnippet
 
 ############
 # SECTIONS #
