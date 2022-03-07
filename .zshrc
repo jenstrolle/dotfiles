@@ -18,7 +18,7 @@ source $ZSH/oh-my-zsh.sh
 
 ## wal https://bit.ly/3pvl5Vy2
 # sets theme on terminal startup
-(cat ~/.cache/wal/sequences &)
+#(cat ~/.cache/wal/sequences &)
 
 # User configuration
 

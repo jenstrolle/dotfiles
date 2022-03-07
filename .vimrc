@@ -132,6 +132,12 @@ let g:airline_symbols.maxlinenr = '☰  '
 " Rebind C-W to C-M
 nnoremap <C-M> <C-W>
 
+" map H, L, J, K to line start, end, halfpgup and halfpgdwn
+nnoremap H ^
+nnoremap L $
+nnoremap J <C-d>
+nnoremap K <C-u>
+
 
 " split navigation
 set splitbelow
