@@ -364,6 +364,12 @@ snippet "bb" "bb" riA
 \mathbb{$1}$0
 endsnippet
 
+priority 10
+context "math()"
+snippet "bf" "bf" riA
+\mathbf{$1}$0
+endsnippet
+
 priority 100
 context "math()"
 snippet "([a-zA-Z])bb" "bb" riA
@@ -655,8 +661,8 @@ snippet ni "Non-indented paragraph" bi
 \noindent
 endsnippet
 
-snippet ref "reference" w
-~\cref[$1]{$2} $0
+snippet cite "reference" i
+~\cite[$1]{$2} $0
 endsnippet
 
 ############
