@@ -27,7 +27,7 @@ Plugin 'ervandew/supertab'
 "" - Alternative themes
 "" Plugin 'jnurmine/Zenburn'
 "" Plugin 'altercation/vim-colors-solarized'
-"" Plugin 'dracula/vim', { 'name': 'dracula' } 
+"" Plugin 'dracula/vim', { 'name': 'dracula' }
 
 Plugin 'dylanaraps/wal.vim'
 
@@ -48,7 +48,7 @@ Plugin 'scrooloose/syntastic'
 "" Folding with docstrings
 Plugin 'tmhedberg/SimpylFold'
 
-"" Automatic indenting in python 
+"" Automatic indenting in python
 Plugin 'vim-scripts/indentpython.vim'
 
 " Explore with nerdtree
@@ -93,6 +93,9 @@ set background=dark
 colorscheme wal
 set termguicolors
 
+" set color of autocomplete menu https://bit.ly/3Kuq2pL
+highlight Pmenu ctermfg=15 ctermbg=0 guifg=#ffffff guibg=#000000
+
 " set wrapping and textwidth set to 79 by default
 set wrap
 set textwidth=79
@@ -110,7 +113,7 @@ let NERDTreeShowHidden=1
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 2 
+let g:airline#extensions#whitespace#mixed_indent_algo = 2
 let g:airline_powerline_fonts = 1
 
 "" ignore whitespace checks in .tex files
@@ -164,11 +167,11 @@ let python_highlight_all=1
 
 " Default style for .py
 au BufNewFile,BufRead *.py
-    \ set tabstop=4 
-    \ softtabstop=4 
-    \ shiftwidth=4 
-    \ expandtab 
-    \ autoindent 
+    \ set tabstop=4
+    \ softtabstop=4
+    \ shiftwidth=4
+    \ expandtab
+    \ autoindent
     \ fileformat=unix
 
 " flag whitespace
@@ -230,9 +233,9 @@ let g:syntastic_check_wq = 1
 
 " ensure syntastic starts in passive mode for all other than tex
 let g:syntastic_mode_map = {
-	\ "mode": "passive",
-        \ "active_filetypes": ["tex"],	
-        \ "passive_filetypes": [] }
+    \ "mode": "passive",
+    \ "active_filetypes": ["tex"],
+    \ "passive_filetypes": [] }
 
 " syntastic python
 let g:syntastic_python_python_exec = 'python3'
@@ -253,6 +256,19 @@ let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 
+"" disable ycm locationlist
+let g:ycm_always_populate_location_list = 0
+let g:ycm_register_as_syntastic_checker = 0
+
+" toggle YouCompleteMe on and off with F4
+function Toggle_ycm()
+    if g:ycm_auto_trigger == 0
+        let g:ycm_auto_trigger = 1
+    elseif g:ycm_auto_trigger == 1
+        let g:ycm_auto_trigger = 0
+    endif
+endfunction
+map <F4> :call Toggle_ycm() <CR>
 
 " UltiSnips
 "" trigger configuration <tab> cannot be used with ycm
