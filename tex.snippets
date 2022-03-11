@@ -32,14 +32,23 @@ endsnippet
 snippet ali "align" w 
 \begin{align}
 	${0:${VISUAL}}
-\end{align}
+.\end{align}
 endsnippet
 
 snippet ali* "align*" w
 \begin{align*}
 	${0:${VISUAL}}
-\end{align*}
+.\end{align*}
 endsnippet
+
+snippet cas "cases environment" w
+\begin{cases}
+	$1, &\text{ if }$2, \\
+	$3
+	$4, &\text{otherwise}.
+\end{cases} $0
+endsnippet
+
 
 snippet cnt "Center" bi
 \begin{center}
