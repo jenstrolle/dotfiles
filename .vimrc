@@ -111,6 +111,8 @@ let g:SimpylFold_docstring_preview=1
 autocmd VimEnter * NERDTree
 let NERDTreeShowHidden=1
 
+nnoremap <F6> :NERDTreeToggle<CR>
+
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 2
