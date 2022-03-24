@@ -115,7 +115,9 @@
 \DeclareMathOperator{\var}{Var}
 \DeclareMathOperator{\e}{e}
 
-
+% make commands for abs and norm
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
 
 %%%%%%%%%%%%%%%%%%
 %  Environments  %
@@ -261,13 +263,13 @@
     arc=0mm,
     colback=white,
     colframe=green!60!black,
-    title=Opmerking,
+    title=Rettelse,
     fonttitle=\sffamily,
     breakable
 ]}{\end{tcolorbox}}
 
 % Note. Same as 'rettelse' but color of box is different
-\newenvironment{noot}[1]{\begin{tcolorbox}[
+\newenvironment{note}[1]{\begin{tcolorbox}[
     arc=0mm,
     colback=white,
     colframe=white!60!black,

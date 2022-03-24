@@ -41,11 +41,30 @@ snippet ali* "align*" w
 .\end{align*}
 endsnippet
 
+snippet max "maximum environment" w
+\begin{align*}
+\max_{$1} \; & $2 ,\\\
+\text{s.t. } \; & $3 \\\
+$4
+\end{align*}
+$0
+endsnippet
+
+snippet min "minimum environment" w
+\begin{align*}
+\min_{$1} \; & $2 ,\\\
+\text{s.t. } \; & $3 \\\
+$4
+\end{align*}
+$0
+endsnippet
+	
+
 snippet cas "cases environment" w
 \begin{cases}
-	$1, &\text{ if }$2, \\
-	$3
-	$4, &\text{otherwise}.
+	$1, &\text{ if $2 } $3 ,  \\\
+	$4
+	$5, &\text{otherwise}.
 \end{cases} $0
 endsnippet
 
@@ -145,7 +164,7 @@ endsnippet
 
 snippet enum "Enumerate" bi
 \begin{enumerate}[$1]
-	\item ${0:${VISUAL}}
+\item ${0:${VISUAL}}
 \end{enumerate}
 endsnippet
 
@@ -189,8 +208,13 @@ endsnippet
 ########
 
 context "math()"
+snippet st "such that" w
+\text{s.t. } $0
+endsnippet
+
+context "math()"
 snippet set "set" wA
-\\{$1\\} $0
+\left\\{$1\right\\} $0
 endsnippet
 
 snippet sm "setminus" w
@@ -198,11 +222,11 @@ snippet sm "setminus" w
 endsnippet
 
 snippet cc "subset" w
-\subseteq
+\subseteq $0
 endsnippet
 
 snippet inn "in " w
-\in 
+\in $0
 endsnippet
 
 snippet Nn "cap" w
@@ -223,7 +247,7 @@ endsnippet
 
 snippet mk "Math" wA
 $${1}$`!p
-if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ')']:
 	snip.rv = ' '
 else:
 	snip.rv = ''
@@ -325,6 +349,14 @@ endsnippet
 
 snippet RR "real" iA
 \R
+endsnippet
+
+snippet Rs "R^" iA
+\R^{$1}$0
+endsnippet
+
+snippet Rn "R^n" iA
+\R^{n}$0
 endsnippet
 
 snippet QQ "Q" iA
@@ -461,7 +493,7 @@ snippet () "Left( right)" w
 endsnippet
 
 snippet lr "left( right)" i
-\left( ${1:${VISUAL}} \right) $0
+\left( ${1:${VISUAL}} \right)$0
 endsnippet
 
 snippet lr( "left( right)" i
@@ -598,12 +630,14 @@ snippet space "Spacing" iA
 \quad \text{$1} \quad $0
 endsnippet
 
+context "math()"
 snippet abs "Absolute value" Aw
-\lvert $1 \rvert $0
+\abs{$1}$0
 endsnippet
 
+context "math()"
 snippet norm "Norm" Aw
-\lVert $1 \rVert $0
+\norm{$1}$0
 endsnippet
 
 #############

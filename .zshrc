@@ -40,6 +40,7 @@ alias -g Z='| fzf'
 # YEET
 alias yeet='git push'
 
+
 function course() {
 	
 	ln -nfs /home/trolle/uni/"$1"sem/"$2" /home/trolle/uni/current-course
