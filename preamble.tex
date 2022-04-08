@@ -1,6 +1,9 @@
 \documentclass[a4paper,oneside,article]{memoir}
 
 
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%
 %  Prettier writing  %
 %%%%%%%%%%%%%%%%%%%%%%
@@ -74,6 +77,7 @@
 \usepackage{float}     			% For moving figures and other stuff around
 \usepackage{titling}   			% For better titles 
 \usepackage{csquotes}  			% Better quotes
+\usepackage{scalerel} 			% For scaling symbols
 
 
 %%%%%%%%%%%%%%
@@ -115,6 +119,7 @@
 \DeclareMathOperator{\var}{Var}
 \DeclareMathOperator{\e}{e}
 
+
 % make commands for abs and norm
 \providecommand{\abs}[1]{\lvert#1\rvert}
 \providecommand{\norm}[1]{\lVert#1\rVert}
@@ -142,10 +147,11 @@
 \newtheorem*{problem}{Problem}
 \newtheorem*{example}{Example}
 \newtheorem*{assumption}{Assumption}
+\newtheorem*{claim}{Claim}
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
-\newtheorem*{note}{Note}
+\newtheorem*{Note}{Note}
 \newtheorem*{obs}{\textbf{OBS}}
 
 % Change proofname from "bevis" to "proof"
@@ -283,6 +289,16 @@
 % Fix some stuff
 % %http://tex.stackexchange.com/questions/76273/multiple-pdfs-with-page-group-included-in-a-single-page-warning
 \pdfsuppresswarningpagegroup=1
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  If TK set sum to other symbol  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\let\temp\sum
+\DeclareMathOperator*{\TKS}{\scalerel*{\rotatebox{90}{+}}{\temp}}
+\newboolean{TK}
+\setboolean{TK}{true}
+\ifthenelse{\boolean{TK}}{\let\sum\TKS}{\let\sum\temp}
 
 % Name
 \author{Jens Trolle}
