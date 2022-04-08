@@ -62,7 +62,7 @@ endsnippet
 
 snippet cas "cases environment" w
 \begin{cases}
-	$1, &\text{ if $2 } $3 ,  \\\
+	$1, &\text{if $2} $3 ,  \\\
 	$4
 	$5, &\text{otherwise}.
 \end{cases} $0
@@ -83,19 +83,19 @@ endsnippet
 
 snippet prop "Proposition" bi
 \begin{prop}[$1]
-	${0:${VISUAL}}
+${0:${VISUAL}}
 \end{prop}
 endsnippet
 
 snippet thrm "Theorem" bi
 \begin{theorem}[$1]
-	${0:${VISUAL}}
+${0:${VISUAL}}
 \end{theorem}
 endsnippet
 
 snippet prf "Proof" bi
 \begin{proof}[$1]
-	${0:${VISUAL}}
+${0:${VISUAL}}
 \end{proof}
 endsnippet
 
@@ -111,8 +111,14 @@ snippet def "Definition" bi
 \end{definition}
 endsnippet
 
-snippet nte "Note" bi
-\begin{note}[$1]
+snippet nnote "Note" bi
+\begin{note}
+	${0:${VISUAL}}
+\end{note}
+endsnippet
+
+snippet note "Note math environment" bi
+\begin{Note}[$1]
 	${0:${VISUAL}}
 \end{note}
 endsnippet
@@ -163,7 +169,7 @@ snippet fig "Figure environment" bi
 endsnippet
 
 snippet enum "Enumerate" bi
-\begin{enumerate}[$1]
+\begin{enumerate}[label=${1:(\arabic*)}]
 \item ${0:${VISUAL}}
 \end{enumerate}
 endsnippet
@@ -208,6 +214,16 @@ endsnippet
 ########
 
 context "math()"
+snippet hes "hessian" iA
+\nabla^{2} f \left( ${1:x} \right)$0
+endsnippet
+
+context "math()"
+snippet times "times" iA
+\cdot $0
+endsnippet
+
+context "math()"
 snippet st "such that" w
 \text{s.t. } $0
 endsnippet
@@ -247,7 +263,7 @@ endsnippet
 
 snippet mk "Math" wA
 $${1}$`!p
-if t[2] and t[2][0] not in [',', '.', '?', '-', ' ', ')']:
+if t[2] and t[2][0] not in [',', '.', '\'', '?', '-', ' ', ':', ')']:
 	snip.rv = ' '
 else:
 	snip.rv = ''
@@ -257,7 +273,7 @@ endsnippet
 snippet dm "Display Math" w
 \[
 	${1:${VISUAL}}
-.\]$0
+${2:.}\]$0
 endsnippet
 
 snippet frac "Fraction" w
@@ -333,6 +349,16 @@ endsnippet
 context "math()"
 snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+endsnippet
+
+context "math()"
+snippet '([xyz])([ijk])' "auto index" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet exs "exists" iA
+\exists\; $0
 endsnippet
 
 snippet ss "Super Script" i
@@ -416,6 +442,19 @@ context "math()"
 snippet "([a-zA-Z])bb" "bb" riA
 \mathbb{`!p snip.rv=match.group(1)`}
 endsnippet
+
+priority 10
+context "math()"
+snippet "hat" "hat" riA
+\hat{$1}$0
+endsnippet
+
+priority 100
+context "math()"
+snippet "([a-zA-Z])hat" "hat" riA
+\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
 
 priority 10
 context "math()"
