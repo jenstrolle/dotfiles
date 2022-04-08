@@ -40,6 +40,9 @@ alias -g Z='| fzf'
 # YEET
 alias yeet='git push'
 
+# open calendar
+alias cal='vim -c Calendar'
+
 
 function course() {
 	
