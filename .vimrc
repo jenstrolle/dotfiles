@@ -68,6 +68,9 @@ Plugin 'KeitaNakamura/tex-conceal.vim'
 " hardmode disables multiple presses of hkjl
 Plugin 'takac/vim-hardtime'
 
+" Calendar
+Plugin 'itchyny/calendar.vim'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -108,10 +111,20 @@ set foldlevel=99
 let g:SimpylFold_docstring_preview=1
 
 " when opening vim open explorer in left split
-autocmd VimEnter * NERDTree
+autocmd VimEnter *py,*tex NERDTree
 let NERDTreeShowHidden=1
 
 nnoremap <F6> :NERDTreeToggle<CR>
+
+" Calendar
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+let g:calendar_first_day = "monday"
+let g:calendar_date_endian = "little"
+let g:calendar_views = ['year', 'month', 'week', 'day_4', 'day', 'agenda', 'clock']
+let g:calendar_cyclic_view = 1
+
+source ~/.cache/calendar.vim/credentials.vim
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
@@ -136,12 +149,6 @@ let g:airline_symbols.maxlinenr = '☰  '
 
 " Rebind C-W to C-M
 nnoremap <C-M> <C-W>
-
-" map H, L, J, K to line start, end, halfpgup and halfpgdwn
-nnoremap H ^
-nnoremap L $
-nnoremap J <C-d>
-nnoremap K <C-u>
 
 
 " split navigation
@@ -225,7 +232,7 @@ nnoremap <leader>c :lprev<CR>
 let g:syntastic_always_populate_loc_list = 1
 
 " auto open location list
-let g:syntastic_auto_loc_list = 2
+let g:syntastic_auto_loc_list = 3
 
 " dont do check on open
 let g:syntastic_check_on_open = 0
