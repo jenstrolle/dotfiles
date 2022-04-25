@@ -747,6 +747,14 @@ snippet cite "reference" i
 ~\cite[$1]{$2} $0
 endsnippet
 
+snippet ref "reference" i
+~\Cref{$1} $0
+endsnippet
+
+snippet cref "reference" i
+~\cref{$1} $0
+endsnippet
+
 ############
 # SECTIONS #
 ############
@@ -794,5 +802,18 @@ endsnippet
 snippet subpar* "Sub Paragraph*" wi
 \subparagraph*{$1${VISUAL}}
 endsnippet
+
+snippet klose "reference" iA
+~\cite[$1]{klose}$0
+endsnippet
+
+snippet buson "reference" iA
+~\cite[$1]{buson}$0
+endsnippet
+
+snippet glover "reference" iA
+~\cite[$1]{glover}$0
+endsnippet
+
 
 # vim:ft=snippets:
