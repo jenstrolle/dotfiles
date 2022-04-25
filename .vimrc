@@ -283,6 +283,11 @@ let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 let g:ycm_python_binary_path='/usr/bin/python3'
 
+if !exists('g:ycm_semantic_triggers')
+	let g:ycm_semantic_triggers = {}
+endif
+au VimEnter * let g:ycm_semantic_triggers.tex=g:vimtex#re#youcompleteme
+
 " UltiSnips
 "" trigger configuration <tab> cannot be used with ycm
 """ default values
@@ -296,7 +301,7 @@ let g:UltiSnipsEditSplit="horizontal"
 
 
 """ spellchecking - consider whether needed
-" setlocal spell
+"setlocal spell
 "set spelllang=en_us
 "inoremap <C-l> <c-g>u<Esc>[s1z=`]a<c-g>u
 
