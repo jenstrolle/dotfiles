@@ -1,9 +1,6 @@
 \documentclass[a4paper,oneside,article]{memoir}
 
 
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%
 %  Prettier writing  %
 %%%%%%%%%%%%%%%%%%%%%%
@@ -23,6 +20,7 @@
 \usepackage{emptypage} 			% Hide page number when page is empty
 \usepackage{xcolor}    			% More colors
 \usepackage{subcaption}			% Makes subcaptions in figures possible
+\usepackage{tabularx}
 
 
 %%%%%%%%%%%%%
@@ -159,7 +157,7 @@
 \renewcommand*{\proofname}{Proof}
 
 % Make new command for solutions to exercises
-\newenvironment*{solution}{\paragraph{Solution:}}{\null\hfill$\diamond$}
+\newenvironment*{solution}{\paragraph{Løsning:}}{\null\hfill$\diamond$}
 
 % Add diamond at end of examples
 \AtEndEnvironment{example}{\null\hfill$\diamond$}%
@@ -177,11 +175,11 @@
 % and \subexercise{num} to define subexercise
 \newcommand{\exercise}[1]{%
     \def\@exercise{#1}%
-    \subsection*{Exercise #1}
+    \subsection*{Opgave #1}
 }
 
 \newcommand{\subexercise}[1]{%
-    \subsubsection*{Exercise \@exercise.#1}
+    \subsubsection*{Opgave \@exercise.#1}
 }
 
 
@@ -298,7 +296,7 @@
 \let\temp\sum
 \DeclareMathOperator*{\TKS}{\scalerel*{\rotatebox{90}{+}}{\temp}}
 \newboolean{TK}
-\setboolean{TK}{true}
+\setboolean{TK}{false}
 \ifthenelse{\boolean{TK}}{\let\sum\TKS}{\let\sum\temp}
 
 % Name
