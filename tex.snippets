@@ -58,7 +58,25 @@ $4
 \end{align*}
 $0
 endsnippet
-	
+
+snippet inf "inf environment" w
+\begin{align*}
+\inf_{$1} \; & $2 ,\\\
+\text{s.t. } \; & $3 \\\
+$4
+\end{align*}
+$0
+endsnippet
+
+snippet sup "supremum environment" w
+\begin{align*}
+\sup_{$1} \; & $2 ,\\\
+\text{s.t. } \; & $3 \\\
+$4
+\end{align*}
+$0
+endsnippet
+
 
 snippet cas "cases environment" w
 \begin{cases}
@@ -169,7 +187,7 @@ snippet fig "Figure environment" bi
 endsnippet
 
 snippet enum "Enumerate" bi
-\begin{enumerate}[label=${1:(\arabic*)}]
+\begin{enumerate}[label=(${1:\arabic*})]
 \item ${0:${VISUAL}}
 \end{enumerate}
 endsnippet
@@ -215,16 +233,16 @@ endsnippet
 
 context "math()"
 snippet hes "hessian" iA
-\nabla^{2} f \left( ${1:x} \right)$0
+\nabla^{2} f ( ${1:x} )$0
 endsnippet
 
 context "math()"
 snippet times "times" iA
-\cdot $0
+\cdot$0
 endsnippet
 
 context "math()"
-snippet st "such that" w
+snippet such "such that" w
 \text{s.t. } $0
 endsnippet
 
@@ -284,6 +302,12 @@ context "math()"
 snippet prime "Prime" iA
 ^{\prime}$0
 endsnippet
+
+context "math()"
+snippet Prime "Double Prime" iA
+^{\prime\prime}$0
+endsnippet
+
 
 context "math()"
 snippet star "Star" iA
@@ -363,6 +387,10 @@ endsnippet
 
 snippet ss "Super Script" i
 ^{$1}$0
+endsnippet
+
+snippet st "Transposed" i
+^{T}$0
 endsnippet
 
 snippet __ "subscript" i
@@ -532,7 +560,7 @@ snippet () "Left( right)" w
 endsnippet
 
 snippet lr "left( right)" i
-\left( ${1:${VISUAL}} \right)$0
+( ${1:${VISUAL}} )$0
 endsnippet
 
 snippet lr( "left( right)" i
@@ -747,11 +775,11 @@ snippet cite "reference" i
 ~\cite[$1]{$2} $0
 endsnippet
 
-snippet ref "reference" i
+snippet Ref "reference" i
 ~\Cref{$1} $0
 endsnippet
 
-snippet cref "reference" i
+snippet ref "reference" i
 ~\cref{$1} $0
 endsnippet
 
