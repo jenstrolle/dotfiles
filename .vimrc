@@ -123,6 +123,7 @@ let g:calendar_first_day = "monday"
 let g:calendar_date_endian = "little"
 let g:calendar_views = ['year', 'month', 'week', 'day_4', 'day', 'agenda', 'clock']
 let g:calendar_cyclic_view = 1
+let g:calendar_week_number = 1
 
 source ~/.cache/calendar.vim/credentials.vim
 
