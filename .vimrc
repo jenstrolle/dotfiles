@@ -215,7 +215,6 @@ highlight Conceal ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 nnoremap <Leader>m :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . &cole <CR>
 
 
-
 """ syntastic
 """ consider switching to ALE: https://bit.ly/3EBXM1b
 
