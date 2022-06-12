@@ -77,6 +77,7 @@
 \usepackage{titling}   			% For better titles 
 \usepackage{csquotes}  			% Better quotes
 \usepackage{scalerel} 			% For scaling symbols
+\usepackage[margin, draft]{fixme}
 
 
 %%%%%%%%%%%%%%
@@ -92,6 +93,7 @@
 \newcommand\E{\ensuremath{\mathbb{E}}}
 \renewcommand\P{\ensuremath{\mathbb{P}}}
 \renewcommand\O{\ensuremath{\emptyset}}
+
 
 % Make implies and impliedby shorter
 \let\implies\Rightarrow
@@ -116,7 +118,10 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator{\ceq}{\coloneqq}
 \DeclareMathOperator{\var}{Var}
-\DeclareMathOperator{\e}{e}
+\DeclareMathOperator{\e}{\mathrm{e}}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\cf}{\varphi}
+\DeclareMathOperator{\trace}{trace}
 
 
 % make commands for abs and norm
@@ -231,21 +236,21 @@
 
 
 % These are the fancy headers
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-
-% LE: left even
-% RO: right odd
-% CE, CO: center even, center odd
-% My name for when I print my lecture notes to use for an open book exam.
-% \fancyhead[LE,RO]{Jens Trolle}
-
-\fancyhead[RO,L]{\@lecture} % Right odd,  Left even
-\fancyhead[R,LO]{}          % Right even, Left odd
-
-\fancyfoot[RO,L]{\thepage}  % Right odd,  Left even
-\fancyfoot[R,LO]{}          % Right even, Left odd
-\fancyfoot[C]{\leftmark}     % Center
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%
+%% LE: left even
+%% RO: right odd
+%% CE, CO: center even, center odd
+%% My name for when I print my lecture notes to use for an open book exam.
+%% \fancyhead[LE,RO]{Jens Trolle}
+%
+%\fancyhead[RO,L]{\@lecture} % Right odd,  Left even
+%\fancyhead[R,LO]{}          % Right even, Left odd
+%
+%\fancyfoot[RO,L]{\thepage}  % Right odd,  Left even
+%\fancyfoot[R,LO]{}          % Right even, Left odd
+%\fancyfoot[C]{\leftmark}     % Center
 
 \makeatother
 
@@ -294,9 +299,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \let\temp\sum
-\DeclareMathOperator*{\TKS}{\scalerel*{\rotatebox{90}{+}}{\temp}}
+\DeclareMathOperator*{\TKS}{\scalerel*{\rotatebox{0}{Z}}{\temp}}
 \newboolean{TK}
-\setboolean{TK}{false}
+\setboolean{TK}{true}
 \ifthenelse{\boolean{TK}}{\let\sum\TKS}{\let\sum\temp}
 
 % Name
