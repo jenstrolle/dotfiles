@@ -1,4 +1,3 @@
-" plugins
 call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'dylanaraps/wal.vim'
@@ -19,17 +18,29 @@ colorscheme wal
 
 " sets
 set encoding=utf-8
-set nu			" set numbering
-set rnu			" set relative numbering
-set laststatus=2	" use statusline
-set noshowmode 		" remove --MODE-- from statusline
-set wrap		" autowrap text
-set textwidth=79	" wrap text after 79 characters
+set nu			        " set numbering
+set rnu			        " set relative numbering
+set laststatus=2	    " use statusline
+set wrap		        " autowrap text
+set textwidth=79        " wrap text after 79 characters
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set splitbelow
+set splitright
+
+" examples from coc.nvim
+set hidden
+set nobackup
+set nowritebackup
+set updatetime=300
 
 " lets
 let mapleader = ' '
+let maplocalleader = ' '
 let g:hardtime_default_on = 1
-
 let g:lightline = {
 	\ 'colorscheme': 'wal',
 	\ }
@@ -46,16 +57,12 @@ let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:tex_conceal='abdmg'
 let g:vimtex_quickfix_mode = 0
-let g:tex_flavor='latex'
-let g:vimtex_view_method='zathura'
-let g:tex_conceal='abdmg'
-let g:vimtex_quickfix_mode = 0
 
 " snippets
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 let g:UltiSnipsEditSplit="horizontal"
+let g:UltisnipsExpandTrigger=""
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
 " auto stuff
 au BufNewFile,BufRead *.py
@@ -68,7 +75,6 @@ au BufNewFile,BufRead *.py
 
 autocmd BufWritePre *.py :%s/\s\+$//e
 
-
 " remaps
 " vimtex quickfix modes and bindings
 nnoremap <leader>q :let g:vimtex_quickfix_mode=0<CR>
@@ -78,5 +84,20 @@ nnoremap <Leader>m :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . 
 " bind for opening snip window horizontally
 nnoremap <leader>E :UltiSnipsEdit<CR>
 
-"set t_8b=^[[48;2;%lu;%lu;%lum
-"set t_8f=^[[38;2;%lu;%lu;%lum
+" source vimrc
+nnoremap <leader>x :source $MYVIMRC<cr>
+
+" set tab to coc-expand
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<S-tab>'
