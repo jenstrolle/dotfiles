@@ -13,7 +13,6 @@ ZSH_THEME="agnoster"
 # see 'man strftime' for details.
 HIST_STAMPS="dd/mm/yyyy"
 
-
 # Which plugins would you like to load?
 plugins=(git z zsh-autosuggestions zsh-syntax-highlighting)
 
@@ -43,56 +42,37 @@ alias -g Z='| fzf'
 # YEET
 alias yeet='git push'
 
-# open calendar
-alias cal='vim -c Calendar'
-
-
-function course() {
-	
-	ln -nfs /home/trolle/uni/"$1"sem/"$2" /home/trolle/uni/current-course
-}
-
-
 ## FZF options
 # source from .fzf.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # set fzf defaults
 ## long preview str explained here https://bit.ly/35IT061
-export FZF_DEFAULT_OPTS="--layout=reverse 
+export FZF_DEFAULT_OPTS="--layout=reverse
 --border 
 --height 60%
 --multi
 --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'
 --bind '?:toggle-preview'
---bind 'ctrl-e:execute(echo {+} | xargs -o vim)'
+--extended
 "
 
-# set fzf default commands
-
-
-## replace find in fzf with fd
-## again see https://bit.ly/35IT061
-
-# fzf's command
-export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git'"
-
-# CTRL-T's command
+export FZF_DEFUALT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# ALT-C's command
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 
-# for more info see fzf/shell/completion.zsh
-
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-    fd . "$1"
+  fd --hidden --follow --exclude ".git" . "$1"
 }
 
+# Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
-    fd --type d . "$1"
+  fd --type d --hidden --follow --exclude ".git" . "$1"
 }
-
 
 # like normal z when used with arguments but 
 # displays an fzf prompt when used without.
