@@ -8,12 +8,14 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
 Plug 'takac/vim-hardtime'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end()
 
 " colors and highlighting
 syntax enable
 set background=dark
 colorscheme wal
+filetype plugin indent on
 
 
 " sets
@@ -101,3 +103,6 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_prev = '<S-tab>'
+
+nnoremap <leader>N :set nonu nornu<CR>
+nnoremap <leader>n :set nu rnu<CR>
