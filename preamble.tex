@@ -1,6 +1,5 @@
 \documentclass[a4paper,oneside,article]{memoir}
 
-
 %%%%%%%%%%%%%%%%%%%%%%
 %  Prettier writing  %
 %%%%%%%%%%%%%%%%%%%%%%
@@ -141,7 +140,7 @@
 % Options for exam theoremstyle (no numbers, english)
 \theoremstyle{plain}
 \newtheorem*{theorem}{Theorem}
-\newtheorem*{proposition}{Proposition}
+\newtheorem*{prop}{Proposition}
 \newtheorem*{lemma}{Lemma}
 \newtheorem*{corollary}{Corollary}
 
@@ -162,7 +161,7 @@
 \renewcommand*{\proofname}{Proof}
 
 % Make new command for solutions to exercises
-\newenvironment*{solution}{\paragraph{Løsning:}}{\null\hfill$\diamond$}
+\newenvironment*{solution}{\paragraph{Solution}}{\null\hfill$\diamond$}
 
 % Add diamond at end of examples
 \AtEndEnvironment{example}{\null\hfill$\diamond$}%
@@ -180,11 +179,11 @@
 % and \subexercise{num} to define subexercise
 \newcommand{\exercise}[1]{%
     \def\@exercise{#1}%
-    \subsection*{Opgave #1}
+    \subsection*{Exercise #1}
 }
 
 \newcommand{\subexercise}[1]{%
-    \subsubsection*{Opgave \@exercise.#1}
+    \subsubsection*{Exercise \@exercise.#1}
 }
 
 
@@ -213,7 +212,7 @@
     }{%
         \def\@lecture{Lecture #1: #3}%
     }%
-    \subsection*{\@lecture}
+    \section*{\@lecture}
     \marginpar{\small\textsf{\mbox{#2}}}
 }
 
