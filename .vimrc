@@ -1,14 +1,19 @@
 call plug#begin()
 Plug 'itchyny/lightline.vim'
 Plug 'dylanaraps/wal.vim'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-surround'
+
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
-Plug 'takac/vim-hardtime'
-Plug 'vim-airline/vim-airline-themes'
+
 call plug#end()
 
 " colors and highlighting
@@ -42,7 +47,6 @@ set updatetime=300
 " lets
 let mapleader = ' '
 let maplocalleader = ' '
-let g:hardtime_default_on = 1
 let g:lightline = {
 	\ 'colorscheme': 'wal',
 	\ }
@@ -86,23 +90,24 @@ nnoremap <Leader>m :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . 
 " bind for opening snip window horizontally
 nnoremap <leader>E :UltiSnipsEdit<CR>
 
+" bind for setting rnu and nornu
+nnoremap <leader>N :set nonu nornu<CR>
+nnoremap <leader>n :set nu rnu<CR>
+
 " source vimrc
 nnoremap <leader>x :source $MYVIMRC<cr>
 
-" set tab to coc-expand
+" set tab to coc-expand --- https://github.com/neoclide/coc-snippets
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#pum#visible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ CheckBackSpace() ? "\<TAB>" :
       \ coc#refresh()
 
-function! s:check_back_space() abort
+function! CheckBackSpace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
 let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_prev = '<S-tab>'
-
-nnoremap <leader>N :set nonu nornu<CR>
-nnoremap <leader>n :set nu rnu<CR>
