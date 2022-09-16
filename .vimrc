@@ -1,19 +1,26 @@
 call plug#begin()
+" visual
 Plug 'itchyny/lightline.vim'
 Plug 'dylanaraps/wal.vim'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-surround'
 
+" snippets
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
+" file finding
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+" autocomplete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" .tex
 Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
 
+" other
+Plug 'tpope/vim-surround'
+Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " colors and highlighting
