@@ -100,6 +100,7 @@ nnoremap <leader>E :UltiSnipsEdit<CR>
 " bind for setting rnu and nornu
 nnoremap <leader>N :set nonu nornu<CR>
 nnoremap <leader>n :set nu rnu<CR>
+nnoremap <silent> <leader>le :Lexplore<bar>vertical resize 30<CR>
 
 " source vimrc
 nnoremap <leader>x :source $MYVIMRC<cr>
@@ -118,3 +119,14 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_prev = '<S-tab>'
+
+augroup latexSurround
+  autocmd!
+  autocmd FileType tex call s:latexSurround()
+augroup END
+
+function! s:latexSurround()
+  let b:surround_{char2nr("e")}
+    \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
+  let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
+endfunction
