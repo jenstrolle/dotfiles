@@ -18,6 +18,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'lervag/vimtex'
 Plug 'KeitaNakamura/tex-conceal.vim'
 
+" git
+Plug 'tpope/vim-fugitive'
+
 " other
 Plug 'tpope/vim-surround'
 Plug 'vimwiki/vimwiki'
@@ -44,12 +47,14 @@ set expandtab
 set autoindent
 set splitbelow
 set splitright
+set title
 
 " examples from coc.nvim
 set hidden
 set nobackup
 set nowritebackup
 set updatetime=300
+
 
 " lets
 let mapleader = ' '
@@ -71,21 +76,10 @@ let g:vimtex_view_method='zathura'
 let g:tex_conceal='abdmg'
 let g:vimtex_quickfix_mode = 0
 
-" snippets
+" split horizontal when editing snippets
 let g:UltiSnipsEditSplit="horizontal"
-let g:UltisnipsExpandTrigger=""
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
 " auto stuff
-au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ softtabstop=4
-    \ shiftwidth=4
-    \ expandtab
-    \ autoindent
-    \ fileformat=unix
-
 autocmd BufWritePre *.py :%s/\s\+$//e
 
 " remaps
@@ -96,6 +90,12 @@ nnoremap <Leader>m :let &cole=(&cole == 2) ? 0 : 2 <bar> echo 'conceallevel ' . 
 
 " bind for opening snip window horizontally
 nnoremap <leader>E :UltiSnipsEdit<CR>
+
+" open fzf buffer
+nnoremap <silent><leader>b :Buffers<CR>
+
+" open ripgrep in vim
+nnoremap <C-g> :Rg <CR>
 
 " bind for setting rnu and nornu
 nnoremap <leader>N :set nonu nornu<CR>
@@ -112,14 +112,28 @@ inoremap <silent><expr> <TAB>
       \ CheckBackSpace() ? "\<TAB>" :
       \ coc#refresh()
 
+
 function! CheckBackSpace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-let g:coc_snippet_next = '<tab>'
+" snippet navigation
+let g:coc_snippet_next = '<C-tab>'
 let g:coc_snippet_prev = '<S-tab>'
 
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> <C-K> <Plug>(coc-diagnostic-prev)
+nmap <silent> <C-J> <Plug>(coc-diagnostic-next)
+
+" coc-ltex spellchecking in .tex documents
+" https://valentjn.github.io/ltex/vscode-ltex/installation-usage-coc-ltex.html
+" Maybe enable for checking thesis?
+" let g:coc_filetype_map = {'tex': 'latex'}
+
+
+" vimsurround support for latex
 augroup latexSurround
   autocmd!
   autocmd FileType tex call s:latexSurround()
