@@ -161,4 +161,4 @@ endif
 " remove coc suggestions in tex
 " consider going back to ultisnips only for tex
 "autocmd FileType tex let b:coc_suggest_disable = 1
-
+"
