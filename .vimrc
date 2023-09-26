@@ -55,7 +55,6 @@ set nobackup
 set nowritebackup
 set updatetime=300
 
-
 " lets
 let mapleader = ' '
 let maplocalleader = ' '
@@ -65,7 +64,6 @@ let g:lightline = {
 
 " netrw
 let g:netrw_liststyle = 3
-let g:netrw_banner = 0
 let g:netrw_browse_split = 1
 let g:netrw_altv = 1
 let g:netrw_winsize = 20
@@ -97,6 +95,9 @@ nnoremap <silent><leader>b :Buffers<CR>
 " open ripgrep in vim
 nnoremap <C-g> :Rg <CR>
 
+" open fzf in vim
+nnoremap <leader>f :FZF<CR>
+
 " bind for setting rnu and nornu
 nnoremap <leader>N :set nonu nornu<CR>
 nnoremap <leader>n :set nu rnu<CR>
@@ -104,6 +105,7 @@ nnoremap <silent> <leader>le :Lexplore<bar>vertical resize 30<CR>
 
 " source vimrc
 nnoremap <leader>x :source $MYVIMRC<cr>
+nnoremap <leader>v :sp $MYVIMRC<cr>
 
 " set tab to coc-expand --- https://github.com/neoclide/coc-snippets
 inoremap <silent><expr> <TAB>
@@ -112,26 +114,30 @@ inoremap <silent><expr> <TAB>
       \ CheckBackSpace() ? "\<TAB>" :
       \ coc#refresh()
 
-
 function! CheckBackSpace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+"let g:UltiSnipsExpandTrigger = '<tab>'
+"let g:UltiSnipsJumpForwardTrigger = '<tab>'
+"let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+
 " snippet navigation
-let g:coc_snippet_next = '<C-tab>'
+let g:coc_snippet_next = '<tab>'
 let g:coc_snippet_prev = '<S-tab>'
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> <C-K> <Plug>(coc-diagnostic-prev)
 nmap <silent> <C-J> <Plug>(coc-diagnostic-next)
-
+"
 " coc-ltex spellchecking in .tex documents
 " https://valentjn.github.io/ltex/vscode-ltex/installation-usage-coc-ltex.html
 " Maybe enable for checking thesis?
-" let g:coc_filetype_map = {'tex': 'latex'}
+let g:coc_filetype_map = {'tex': 'latex'}
 
+nnoremap <leader>c :CocList extensions <CR>
 
 " vimsurround support for latex
 augroup latexSurround
@@ -144,3 +150,15 @@ function! s:latexSurround()
     \ = "\\begin{\1environment: \1}\n\t\r\n\\end{\1\1}"
   let b:surround_{char2nr("c")} = "\\\1command: \1{\r}"
 endfunction
+
+
+" This will only work if `vim --version` includes `+clientserver`!
+if empty(v:servername) && exists('*remote_startserver')
+  call remote_startserver('VIM')
+endif
+
+
+" remove coc suggestions in tex
+" consider going back to ultisnips only for tex
+"autocmd FileType tex let b:coc_suggest_disable = 1
+

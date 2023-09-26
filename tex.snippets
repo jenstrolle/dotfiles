@@ -241,7 +241,7 @@ endsnippet
 
 context "math()"
 snippet times "times" iA
-\cdot$0
+\cdot $0
 endsnippet
 
 context "math()"
@@ -379,16 +379,17 @@ snippet '([A-Za-z])_(\d\d)' "auto subscript2" wrA
 endsnippet
 
 context "math()"
-snippet '([xyz])([ijk])' "auto index" wrA
-`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+snippet exs "exists" iA
+\exists\: $0
 endsnippet
 
 context "math()"
-snippet exs "exists" iA
-\exists\; $0
+snippet fa "for all" iA
+\forall\: $0
 endsnippet
 
-snippet ss "Super Script" i
+context "math()"
+snippet ss "Super Script" iA
 ^{$1}$0
 endsnippet
 
@@ -396,12 +397,13 @@ snippet st "Transposed" i
 ^{T}$0
 endsnippet
 
-snippet __ "subscript" i
+context "math()"
+snippet jj "subscript" iA
 _{$1}$0
 endsnippet
 
 snippet OO "emptyset" iA
-\O
+\emptyset
 endsnippet
 
 snippet RR "real" iA
@@ -457,6 +459,12 @@ priority 100
 context "math()"
 snippet "([a-zA-Z])cal" "cal" riA
 \mathcal{`!p snip.rv=match.group(1)`}
+endsnippet
+
+priority 100
+context "math()"
+snippet "([a-zA-Z])bf" "bf" riA
+\mathbf{`!p snip.rv=match.group(1)`}
 endsnippet
 
 priority 10
@@ -581,8 +589,12 @@ snippet lr{ "left\{ right\}" i
 \left\\{ ${1:${VISUAL}} \right\\} $0
 endsnippet
 
-snippet lrb "left\{ right\}" i
+snippet lrc "left\{ right\}" i
 \left\\{ ${1:${VISUAL}} \right\\} $0
+endsnippet
+
+snippet lrb "left\{ right\}" i
+\left[ ${1:${VISUAL}} \right] $0
 endsnippet
 
 snippet lr[ "left[ right]" i
@@ -779,6 +791,10 @@ endsnippet
 
 snippet cite "reference" i
 ~\cite[$1]{$2} $0
+endsnippet
+
+snippet citep "reference" i
+~\parencite[$1]{$2} $0
 endsnippet
 
 snippet Ref "reference" i

@@ -51,6 +51,7 @@
 \usepackage{mathtools}			% Tools for amsmath, see https://bit.ly/3rE9g0E
 \usepackage{cancel}   			% For cancelling things in fractions
 \usepackage{bm}       			% Bold math
+\usepackage{physics}            % Access to nice macros form physics
 
 %%%%%%%%%%%%%%%%
 %  Code stuff  %
@@ -58,8 +59,9 @@
 
 \usepackage{listings}  			% Write code inline
 \usepackage{tikz}  			% For drawing figures in TeX
-\usepackage{algpseudocode}  		% Prettier algorithms
-\usepackage{algorithm}
+\usepackage[noline, noend]{algorithm2e}  		% Prettier algorithms
+
+%\usepackage{algorithm}
 
 
 %%%%%%%%%%%%%%%%%
@@ -118,11 +120,11 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator{\ceq}{\coloneqq}
-\DeclareMathOperator{\var}{Var}
+%\DeclareMathOperator{\var}{Var}
 \DeclareMathOperator{\e}{\mathrm{e}}
 \DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\cf}{\varphi}
-\DeclareMathOperator{\trace}{trace}
+%\DeclareMathOperator{\trace}{trace}
 
 
 % make commands for abs and norm
@@ -302,7 +304,7 @@
 \let\temp\sum
 \DeclareMathOperator*{\TKS}{\scalerel*{\rotatebox{0}{Z}}{\temp}}
 \newboolean{TK}
-\setboolean{TK}{false}
+\setboolean{TK}{true}
 \ifthenelse{\boolean{TK}}{\let\sum\TKS}{\let\sum\temp}
 
 % Name
